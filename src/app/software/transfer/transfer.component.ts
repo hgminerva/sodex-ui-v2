@@ -51,6 +51,13 @@ export class TransferComponent implements OnInit {
 
   @ViewChild('trasnferModalTemplate') trasnferModalTemplate: TemplateRef<any>;
 
+  public isAddButtonHide: boolean = true;
+  public isEditButtonHide: boolean = true;
+  public isUpdateButtonHide: boolean = true;
+  public isDeleteButtonHide: boolean = true;
+
+  public canTransfer: boolean = false;
+
   public openTransferModal(template: TemplateRef<any>): void {
     if (this.card.CardNumber != "") {
       this.amountToBeTransfered = 0;
@@ -92,7 +99,9 @@ export class TransferComponent implements OnInit {
             this.isCardDetailLoaded = true;
             this.isBtnTransferDisable = false;
 
-            this.openTransferModal(this.trasnferModalTemplate);
+            if (this.canTransfer) {
+              this.openTransferModal(this.trasnferModalTemplate);
+            }
           } else {
             this.toastr.error("No card details for this card number.");
 
@@ -176,6 +185,23 @@ export class TransferComponent implements OnInit {
             this.isContentHidden = false;
 
             this.isCardDetailLoaded = false;
+
+            if (data.CanAdd) {
+              this.isAddButtonHide = false;
+            }
+
+            if (data.CanEdit) {
+              this.isEditButtonHide = false;
+            }
+
+            if (data.CanUpdate) {
+              this.isUpdateButtonHide = false;
+              this.canTransfer = true;
+            }
+
+            if (data.CanDelete) {
+              this.isDeleteButtonHide = false;
+            }
           } else {
             this.router.navigateByUrl("/software/forbidden", { skipLocationChange: true });
           }

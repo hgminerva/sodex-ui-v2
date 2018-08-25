@@ -36,6 +36,11 @@ export class CheckBalanceComponent implements OnInit {
   public isLoadingSpinnerHidden: boolean = false;
   public isContentHidden: boolean = true;
 
+  public isAddButtonHide: boolean = true;
+  public isEditButtonHide: boolean = true;
+  public isUpdateButtonHide: boolean = true;
+  public isDeleteButtonHide: boolean = true;
+
   public btnLoadCardDetailsOnclick(): void {
     if (this.card.CardNumber != "") {
       this.checkBalanceService.getCardDetails(this.card.CardNumber);
@@ -87,6 +92,22 @@ export class CheckBalanceComponent implements OnInit {
           if (data != null) {
             this.isLoadingSpinnerHidden = true;
             this.isContentHidden = false;
+
+            if (data.CanAdd) {
+              this.isAddButtonHide = false;
+            }
+
+            if (data.CanEdit) {
+              this.isEditButtonHide = false;
+            }
+
+            if (data.CanUpdate) {
+              this.isUpdateButtonHide = false;
+            }
+
+            if (data.CanDelete) {
+              this.isDeleteButtonHide = false;
+            }
           } else {
             this.router.navigateByUrl("/software/forbidden", { skipLocationChange: true });
           }

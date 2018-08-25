@@ -12,10 +12,12 @@
     </ol>
     <div class="card card-default">
       <div class="card-header" align="right">
-        <button type="button" class="btn btn-primary" style="margin-right: 5px;" id="btnUpdateProfile" (click)="btnUpdateProfileOnclick()">
+        <button type="button" class="btn btn-primary" style="margin-right: 5px;" [hidden]="isUpdateButtonHide" id="btnUpdateProfile"
+          (click)="btnUpdateProfileOnclick()">
           <i class="fa fa-save fa-fw"></i>Save
         </button>
-        <button type="button" class="btn btn-primary" style="margin-right: 5px;" id="btnEditProfile" (click)="btnEditProfileOnclick()">
+        <button type="button" class="btn btn-primary" style="margin-right: 5px;" [hidden]="isEditButtonHide" id="btnEditProfile"
+          (click)="btnEditProfileOnclick()">
           <i class="fa fa-edit fa-fw"></i>Edit
         </button>
         <button type="button" class="btn btn-danger" id="btnCloseProfile" routerLink="/software">
@@ -47,8 +49,8 @@
           <div class="col">
             <div class="form-container">
               <mat-form-field>
-                <input matInput type="password" disabled placeholder="Mother Card Number" [(ngModel)]="profile.MotherCardNumber" [disabled]="isProfileDisabled" autocomplete="off"
-                  autocorrect="off" autocapitalize="off" spellcheck="false">
+                <input matInput type="password" disabled placeholder="Mother Card Number" [(ngModel)]="profile.MotherCardNumber" [disabled]="isProfileDisabled"
+                  autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
               </mat-form-field>
               <mat-form-field>
                 <input currencyMask matInput placeholder="Balance" [(ngModel)]="profile.MotherCardBalance" [disabled]="isProfileDisabled"

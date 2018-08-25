@@ -33,7 +33,7 @@
                   </div>
                 </td>
                 <td style="width: 20%;" align="right">
-                  <button type="button" class="btn btn-info" style="margin-right: 5px;" (click)="btnRegisterNewUserOnclick(newUserModalTemplate)">
+                  <button type="button" [hidden]="isAddButtonHide" class="btn btn-info" style="margin-right: 5px;" (click)="btnRegisterNewUserOnclick(newUserModalTemplate)">
                     <i class="fa fa-key fa-fw"></i>Register
                   </button>
                   <button type="button" class="btn btn-danger" routerLink="/software">
@@ -47,9 +47,9 @@
             <mat-progress-bar [hidden]="isProgressBarHidden" [color]="'primary'" [mode]="'indeterminate'"></mat-progress-bar>
             <wj-flex-grid #userFlexGrid [itemsSource]="usersCollectionView" [selectionMode]="3" [frozenColumns]="2">
               <wj-flex-grid-filter></wj-flex-grid-filter>
-              <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [width]="95">
+              <wj-flex-grid-column *ngIf="isShowEditColumn" [header]="Edit" [isReadOnly]="true" [width]="95">
                 <ng-template wjFlexGridCellTemplate [cellType]="'Cell'">
-                  <button type="button" class="btn btn-primary btn-block btn-xs" (click)="btnOpenUser()">
+                  <button [hidden]="isEditButtonHide" type="button" class="btn btn-primary btn-block btn-xs" (click)="btnOpenUser()">
                     <i class="fa fa-edit fa-fw"></i> Edit
                   </button>
                 </ng-template>
@@ -90,10 +90,11 @@
 
         <div class="card card-default">
           <div class="card-header" align="right">
-            <button type="button" class="btn btn-primary" id="btnUpdateUser" style="margin-right: 5px;" (click)="btnUpdateUser()">
+            <button type="button" [hidden]="isUpdateButtonHide" class="btn btn-primary" id="btnUpdateUser" style="margin-right: 5px;"
+              (click)="btnUpdateUser()">
               <i class="fa fa-check fa-fw"></i>Update
             </button>
-            <button type="button" class="btn btn-primary" id="btnEditUser" style="margin-right: 5px;" (click)="btnEditUser()">
+            <button type="button" [hidden]="isEditButtonHide" class="btn btn-primary" id="btnEditUser" style="margin-right: 5px;" (click)="btnEditUser()">
               <i class="fa fa-edit fa-fw"></i>Edit
             </button>
             <button type="button" class="btn btn-danger" id="btnCloseUser" (click)="removeUserTab(index)">
@@ -129,8 +130,8 @@
               <div class="col">
                 <div class="form-container">
                   <mat-form-field>
-                    <input matInput type="password" placeholder="Mother Card Number" [disabled]="isUserFieldDisabled" [(ngModel)]="listUsers[userIndex].MotherCardNumber" autocomplete="off"
-                      autocorrect="off" autocapitalize="off" spellcheck="false">
+                    <input matInput type="password" placeholder="Mother Card Number" [disabled]="isUserFieldDisabled" [(ngModel)]="listUsers[userIndex].MotherCardNumber"
+                      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                   </mat-form-field>
                   <mat-form-field>
                     <input matInput currencyMask placeholder="Balance" disabled [(ngModel)]="listUsers[userIndex].MotherCardBalance" autocomplete="off"
@@ -147,7 +148,6 @@
             </div>
           </div>
         </div>
-
 
         <br />
 
@@ -173,7 +173,7 @@
                       </div>
                     </td>
                     <td style="width: 20%;" align="right">
-                      <button type="button" class="btn btn-primary" [disabled]="isBtnUserFormButtonsDisabled" (click)="btnAddUserFormOnclick(newUserFormModalTemplate)">
+                      <button type="button" [hidden]="isAddButtonHide" class="btn btn-primary" [disabled]="isBtnUserFormButtonsDisabled" (click)="btnAddUserFormOnclick(newUserFormModalTemplate)">
                         <i class="fa fa-plus fa-fw"></i>Add
                       </button>
                     </td>
@@ -184,16 +184,18 @@
                 <mat-progress-bar [hidden]="isUserFormProgressBarHidden" [color]="'primary'" [mode]="'indeterminate'"></mat-progress-bar>
                 <wj-flex-grid #userFormFlexGrid [itemsSource]="userFormCollectionView" [selectionMode]="3" [frozenColumns]="2">
                   <wj-flex-grid-filter></wj-flex-grid-filter>
-                  <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [width]="95">
+                  <wj-flex-grid-column *ngIf="isShowEditColumn" [header]="Edit" [isReadOnly]="true" [width]="95">
                     <ng-template wjFlexGridCellTemplate [cellType]="'Cell'">
-                      <button type="button" class="btn btn-primary btn-block btn-xs" [disabled]="isBtnUserFormButtonsDisabled" (click)="btnEditUserFormOnclick(newUserFormModalTemplate)">
+                      <button [hidden]="isEditButtonHide" type="button" class="btn btn-primary btn-block btn-xs" [disabled]="isBtnUserFormButtonsDisabled"
+                        (click)="btnEditUserFormOnclick(newUserFormModalTemplate)">
                         <i class="fa fa-edit fa-fw"></i> Edit
                       </button>
                     </ng-template>
                   </wj-flex-grid-column>
-                  <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="95">
+                  <wj-flex-grid-column *ngIf="isShowDeleteColumn" [header]="Delete" [isReadOnly]="true" [width]="95">
                     <ng-template wjFlexGridCellTemplate [cellType]="'Cell'">
-                      <button type="button" class="btn btn-danger btn-block btn-xs" [disabled]="isBtnUserFormButtonsDisabled" (click)="btnDeleteUserFormOnclick(deleteUserFormModalTemplate)">
+                      <button [hidden]="isDeleteButtonHide" type="button" class="btn btn-danger btn-block btn-xs" [disabled]="isBtnUserFormButtonsDisabled"
+                        (click)="btnDeleteUserFormOnclick(deleteUserFormModalTemplate)">
                         <i class="fa fa-trash fa-fw"></i> Delete
                       </button>
                     </ng-template>
@@ -274,7 +276,8 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-success" style="margin-right: 5px;" id="btnRegisterUser" (click)="btnRegisterUserOnclick()">
+      <button type="button" [hidden]="isAddButtonHide" class="btn btn-success" style="margin-right: 5px;" id="btnRegisterUser"
+        (click)="btnRegisterUserOnclick()">
         <i class="fa fa-key fa-fw"></i> Register
       </button>
       <button type="button" class="btn btn-danger" id="btnCloseNewRegisterUserModal" (click)="newUserModalRef.hide()">
@@ -308,7 +311,8 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" style="margin-right: 5px;" id="btnSaveUserForm" (click)="btnSaveUserFormOnclick()">
+      <button type="button" [hidden]="iSaveUserFormButtonHide" class="btn btn-primary" style="margin-right: 5px;" id="btnSaveUserForm"
+        (click)="btnSaveUserFormOnclick()">
         <i class="fa fa-save fa-fw"></i>Save
       </button>
       <button type="button" class="btn btn-danger" id="btnCloseUserFormModal" (click)="newUserFormModalRef.hide()">
@@ -326,7 +330,8 @@
       Are you sure you want to delete this user form?
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-danger" style="margin-right: 5px;" id="btnConfirmDeleteUserForm" (click)="btnConfirmDeleteUserFormOnclick()">
+      <button type="button" [hidden]="isDeleteButtonHide" class="btn btn-danger" style="margin-right: 5px;" id="btnConfirmDeleteUserForm"
+        (click)="btnConfirmDeleteUserFormOnclick()">
         <i class="fa fa-trash fa-fw"></i>Delete
       </button>
       <button type="button" class="btn" id="btnConfirmDeleteUserFormCloseModal" (click)="deleteUserFormModalRef.hide()">

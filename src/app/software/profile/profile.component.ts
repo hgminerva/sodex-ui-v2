@@ -36,6 +36,11 @@ export class ProfileComponent implements OnInit {
   public isLoadingSpinnerHidden: boolean = false;
   public isContentHidden: boolean = true;
 
+  public isAddButtonHide: boolean = true;
+  public isEditButtonHide: boolean = true;
+  public isUpdateButtonHide: boolean = true;
+  public isDeleteButtonHide: boolean = true;
+
   public getProfileData(): void {
     let btnUpdateProfile: Element = document.getElementById("btnUpdateProfile");
     btnUpdateProfile.setAttribute("disabled", "disabled");
@@ -112,6 +117,23 @@ export class ProfileComponent implements OnInit {
           if (data != null) {
             this.isLoadingSpinnerHidden = true;
             this.isContentHidden = false;
+
+            if (data.CanAdd) {
+              this.isAddButtonHide = false;
+            }
+
+            if (data.CanEdit) {
+              this.isEditButtonHide = false;
+            }
+
+            if (data.CanUpdate) {
+              this.isUpdateButtonHide = false;
+            }
+
+            if (data.CanDelete) {
+              this.isDeleteButtonHide = false;
+            }
+
             this.getProfileData();
           } else {
             this.router.navigateByUrl("/software/forbidden", { skipLocationChange: true });

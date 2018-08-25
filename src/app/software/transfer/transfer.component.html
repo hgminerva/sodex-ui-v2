@@ -13,7 +13,8 @@
 
     <div class="card card-default">
       <div class="card-header" align="right">
-        <button type="button" class="btn btn-primary" style="margin-right: 5px;" [disabled]="isBtnTransferDisable" (click)="openTransferModal(trasnferModalTemplate)">
+        <button type="button" [hidden]="isUpdateButtonHide" class="btn btn-primary" style="margin-right: 5px;" [disabled]="isBtnTransferDisable"
+          (click)="openTransferModal(trasnferModalTemplate)">
           <i class="fa fa-credit-card fa-fw"></i>Transfer
         </button>
         <button type="button" class="btn btn-danger" routerLink="/software">
@@ -93,7 +94,8 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" style="margin-right: 5px;" id="btnTransferAmount" (click)="btnTransferAmountOnclick()">
+      <button type="button" [hidden]="isUpdateButtonHide" class="btn btn-primary" style="margin-right: 5px;" id="btnTransferAmount"
+        (click)="btnTransferAmountOnclick()">
         <i class="fa fa-credit-card fa-fw"></i>Transfer
       </button>
       <button type="button" class="btn btn-danger" id="btnTransferAmountCloseModal" (click)="modalRef.hide()">

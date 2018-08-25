@@ -106,6 +106,16 @@ export class UsersComponent implements OnInit {
   public isLoadingSpinnerHidden: boolean = false;
   public isContentHidden: boolean = true;
 
+  public isAddButtonHide: boolean = true;
+  public isEditButtonHide: boolean = true;
+  public isUpdateButtonHide: boolean = true;
+  public isDeleteButtonHide: boolean = true;
+
+  public isShowEditColumn: boolean = false;
+  public isShowDeleteColumn: boolean = false;
+
+  public iSaveUserFormButtonHide: boolean = true;
+
   public createCboShowNumberOfRows(): void {
     for (var i = 0; i <= 4; i++) {
       var rows = 0;
@@ -594,6 +604,28 @@ export class UsersComponent implements OnInit {
           if (data != null) {
             this.isLoadingSpinnerHidden = true;
             this.isContentHidden = false;
+
+            if (data.CanAdd) {
+              this.isAddButtonHide = false;
+            }
+
+            if (data.CanEdit) {
+              this.isEditButtonHide = false;
+              this.isShowEditColumn = true;
+            }
+
+            if (data.CanUpdate) {
+              this.isUpdateButtonHide = false;
+            }
+
+            if (data.CanDelete) {
+              this.isDeleteButtonHide = false;
+              this.isShowDeleteColumn = true;
+            }
+
+            if (data.CanAdd && data.CanUpdate) {
+              this.iSaveUserFormButtonHide = false;
+            }
 
             this.getUsersData();
           } else {

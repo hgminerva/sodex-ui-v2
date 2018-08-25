@@ -80,6 +80,14 @@ export class CardsComponent implements OnInit {
 
   public totalBalanceAmount: number = 0;
 
+  public isAddButtonHide: boolean = true;
+  public isEditButtonHide: boolean = true;
+  public isUpdateButtonHide: boolean = true;
+  public isDeleteButtonHide: boolean = true;
+
+  public isShowEditColumn: boolean = false;
+  public isShowDeleteColumn: boolean = false;
+
   public createCboShowNumberOfRows(): void {
     for (var i = 0; i <= 4; i++) {
       var rows = 0;
@@ -409,6 +417,25 @@ export class CardsComponent implements OnInit {
           if (data != null) {
             this.isLoadingSpinnerHidden = true;
             this.isContentHidden = false;
+            
+            if (data.CanAdd) {
+              this.isAddButtonHide = false;
+            }
+
+            if (data.CanEdit) {
+              this.isEditButtonHide = false;
+              this.isShowEditColumn = true;
+            }
+
+            if (data.CanUpdate) {
+              this.isUpdateButtonHide = false;
+            }
+
+            if (data.CanDelete) {
+              this.isDeleteButtonHide = false;
+              this.isShowDeleteColumn = true;
+            }
+
             this.getCardsData();
           } else {
             this.router.navigateByUrl("/software/forbidden", { skipLocationChange: true });

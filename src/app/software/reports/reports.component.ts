@@ -46,6 +46,11 @@ export class ReportsComponent implements OnInit {
   public isLoadingSpinnerHidden: boolean = false;
   public isContentHidden: boolean = true;
 
+  public isAddButtonHide: boolean = true;
+  public isEditButtonHide: boolean = true;
+  public isUpdateButtonHide: boolean = true;
+  public isDeleteButtonHide: boolean = true;
+
   public createCboShowNumberOfRows(): void {
     for (var i = 0; i <= 4; i++) {
       var rows = 0;
@@ -212,6 +217,22 @@ export class ReportsComponent implements OnInit {
           if (data != null) {
             this.isLoadingSpinnerHidden = true;
             this.isContentHidden = false;
+
+            if (data.CanAdd) {
+              this.isAddButtonHide = false;
+            }
+
+            if (data.CanEdit) {
+              this.isEditButtonHide = false;
+            }
+
+            if (data.CanUpdate) {
+              this.isUpdateButtonHide = false;
+            }
+
+            if (data.CanDelete) {
+              this.isDeleteButtonHide = false;
+            }
           } else {
             this.router.navigateByUrl("/software/forbidden", { skipLocationChange: true });
           }
