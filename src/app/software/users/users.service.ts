@@ -83,45 +83,66 @@ export class UsersService {
       error => {
         let errorResults: string[] = ["failed"];
 
-        let fullnameErrors = error.json().ModelState["model.FullName"];
-        if (fullnameErrors.length > 0) {
-          for (let i = 0; i < fullnameErrors.length; i++) {
-            errorResults.push(fullnameErrors[i]);
-          }
-        }
-        
-        let addressErrors = error.json().ModelState["model.Address"];
-        if (addressErrors.length > 0) {
-          for (let i = 0; i < addressErrors.length; i++) {
-            errorResults.push(addressErrors[i]);
+        if (error.json().ModelState[""] != undefined || error.json().ModelState[""] != null) {
+          let errorMessage = error.json().ModelState[""];
+          if (errorMessage.length > 0) {
+            for (let i = 0; i < errorMessage.length; i++) {
+              errorResults.push(errorMessage[i]);
+            }
           }
         }
 
-        let contactNumberErrors = error.json().ModelState["model.ContactNumber"];
-        if (contactNumberErrors.length > 0) {
-          for (let i = 0; i < contactNumberErrors.length; i++) {
-            errorResults.push(contactNumberErrors[i]);
+        if (error.json().ModelState["model.FullName"] != undefined || error.json().ModelState["model.FullName"] != null) {
+          let fullnameErrors = error.json().ModelState["model.FullName"];
+          if (fullnameErrors.length > 0) {
+            for (let i = 0; i < fullnameErrors.length; i++) {
+              errorResults.push(fullnameErrors[i]);
+            }
           }
         }
 
-        let emailErrors = error.json().ModelState["model.Email"];
-        if (emailErrors.length > 0) {
-          for (let i = 0; i < emailErrors.length; i++) {
-            errorResults.push(emailErrors[i]);
+        if (error.json().ModelState["model.Address"] != undefined || error.json().ModelState["model.FullName"] != null) {
+          let addressErrors = error.json().ModelState["model.Address"];
+          if (addressErrors.length > 0) {
+            for (let i = 0; i < addressErrors.length; i++) {
+              errorResults.push(addressErrors[i]);
+            }
           }
         }
 
-        let passwordErrors = error.json().ModelState["model.Password"];
-        if (passwordErrors.length > 0) {
-          for (let i = 0; i < passwordErrors.length; i++) {
-            errorResults.push(passwordErrors[i]);
+        if (error.json().ModelState["model.ContactNumber"] != undefined || error.json().ModelState["model.FullName"] != null) {
+          let contactNumberErrors = error.json().ModelState["model.ContactNumber"];
+          if (contactNumberErrors.length > 0) {
+            for (let i = 0; i < contactNumberErrors.length; i++) {
+              errorResults.push(contactNumberErrors[i]);
+            }
           }
         }
-        
-        let usernameErrors = error.json().ModelState["model.UserName"];
-        if (usernameErrors.length > 0) {
-          for (let i = 0; i < usernameErrors.length; i++) {
-            errorResults.push(usernameErrors[i]);
+
+        if (error.json().ModelState["model.Email"] != undefined || error.json().ModelState["model.FullName"] != null) {
+          let emailErrors = error.json().ModelState["model.Email"];
+          if (emailErrors.length > 0) {
+            for (let i = 0; i < emailErrors.length; i++) {
+              errorResults.push(emailErrors[i]);
+            }
+          }
+        }
+
+        if (error.json().ModelState["model.UserName"] != undefined || error.json().ModelState["model.FullName"] != null) {
+          let usernameErrors = error.json().ModelState["model.UserName"];
+          if (usernameErrors.length > 0) {
+            for (let i = 0; i < usernameErrors.length; i++) {
+              errorResults.push(usernameErrors[i]);
+            }
+          }
+        }
+
+        if (error.json().ModelState["model.Password"] != undefined || error.json().ModelState["model.FullName"] != null) {
+          let passwordErrors = error.json().ModelState["model.Password"];
+          if (passwordErrors.length > 0) {
+            for (let i = 0; i < passwordErrors.length; i++) {
+              errorResults.push(passwordErrors[i]);
+            }
           }
         }
 
