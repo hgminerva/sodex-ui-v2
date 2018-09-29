@@ -26,14 +26,16 @@
                         <b>Show</b>
                       </div>
                     </div>
-                    <wj-combo-box #cboNumberOfRows [itemsSource]="cboShowNumberOfRows" [isEditable]="false" [isRequired]="true" [displayMemberPath]="'rowString'"
-                      [selectedValuePath]="'rowNumber'" (selectedIndexChanged)="cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)"
+                    <wj-combo-box #cboNumberOfRows [itemsSource]="cboShowNumberOfRows" [isEditable]="false"
+                      [isRequired]="true" [displayMemberPath]="'rowString'" [selectedValuePath]="'rowNumber'"
+                      (selectedIndexChanged)="cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)"
                       style="width: 180px;">
                     </wj-combo-box>
                   </div>
                 </td>
                 <td style="width: 20%;" align="right">
-                  <button type="button" [hidden]="isAddButtonHide" class="btn btn-info" style="margin-right: 5px;" (click)="btnRegisterNewUserOnclick(newUserModalTemplate)">
+                  <button type="button" [hidden]="isAddButtonHide" class="btn btn-info" style="margin-right: 5px;"
+                    (click)="btnRegisterNewUserOnclick(newUserModalTemplate)">
                     <i class="fa fa-key fa-fw"></i>Register
                   </button>
                   <button type="button" class="btn btn-danger" routerLink="/software">
@@ -94,7 +96,8 @@
               (click)="btnUpdateUser()">
               <i class="fa fa-check fa-fw"></i>Update
             </button>
-            <button type="button" [hidden]="isEditButtonHide" class="btn btn-primary" id="btnEditUser" style="margin-right: 5px;" (click)="btnEditUser()">
+            <button type="button" [hidden]="isEditButtonHide" class="btn btn-primary" id="btnEditUser" style="margin-right: 5px;"
+              (click)="btnEditUser()">
               <i class="fa fa-edit fa-fw"></i>Edit
             </button>
             <button type="button" class="btn btn-danger" id="btnCloseUser" (click)="removeUserTab(index)">
@@ -106,36 +109,40 @@
               <div class="col">
                 <div class="form-container">
                   <mat-form-field>
-                    <input matInput placeholder="Name" [disabled]="isUserFieldDisabled" [(ngModel)]="listUsers[userIndex].FullName" autocomplete="off"
-                      autocorrect="off" autocapitalize="off" spellcheck="false">
+                    <input matInput placeholder="Name" [disabled]="isUserFieldDisabled" [(ngModel)]="listUsers[userIndex].FullName"
+                      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                   </mat-form-field>
                   <mat-form-field>
-                    <textarea matInput placeholder="Address" [disabled]="isUserFieldDisabled" rows="5" style="height: 87px; resize: none;" [(ngModel)]="listUsers[userIndex].Address"
-                      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+                    <textarea matInput placeholder="Address" [disabled]="isUserFieldDisabled" rows="5" style="height: 87px; resize: none;"
+                      [(ngModel)]="listUsers[userIndex].Address" autocomplete="off" autocorrect="off" autocapitalize="off"
+                      spellcheck="false"></textarea>
                   </mat-form-field>
                   <mat-form-field>
-                    <input matInput placeholder="Email" [disabled]="isUserFieldDisabled" [(ngModel)]="listUsers[userIndex].Email" autocomplete="off"
-                      autocorrect="off" autocapitalize="off" spellcheck="false">
+                    <input matInput placeholder="Email" [disabled]="isUserFieldDisabled" [(ngModel)]="listUsers[userIndex].Email"
+                      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                   </mat-form-field>
                   <mat-form-field>
-                    <input matInput placeholder="Contact Number" [disabled]="isUserFieldDisabled" autocomplete="off" autocorrect="off" [(ngModel)]="listUsers[userIndex].ContactNumber"
-                      autocapitalize="off" spellcheck="false">
+                    <input matInput placeholder="Contact Number" [disabled]="isUserFieldDisabled" autocomplete="off"
+                      autocorrect="off" [(ngModel)]="listUsers[userIndex].ContactNumber" autocapitalize="off"
+                      spellcheck="false">
                   </mat-form-field>
                   <mat-form-field>
-                    <input matInput placeholder="Username" disabled [(ngModel)]="listUsers[userIndex].Username" autocomplete="off" autocorrect="off"
-                      autocapitalize="off" spellcheck="false">
+                    <input matInput placeholder="Username" disabled [(ngModel)]="listUsers[userIndex].Username"
+                      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                   </mat-form-field>
                 </div>
               </div>
               <div class="col">
                 <div class="form-container">
                   <mat-form-field>
-                    <input matInput type="password" placeholder="Mother Card Number" [disabled]="isUserFieldDisabled" [(ngModel)]="listUsers[userIndex].MotherCardNumber"
-                      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    <input matInput type="password" placeholder="Mother Card Number" [disabled]="isUserFieldDisabled"
+                      [(ngModel)]="listUsers[userIndex].MotherCardNumber" autocomplete="off" autocorrect="off"
+                      autocapitalize="off" spellcheck="false">
                   </mat-form-field>
                   <mat-form-field>
-                    <input matInput currencyMask placeholder="Balance" disabled [(ngModel)]="listUsers[userIndex].MotherCardBalance" autocomplete="off"
-                      autocorrect="off" autocapitalize="off" spellcheck="false" style="font-size: 60px; height: 86.5px;" value="0.00">
+                    <input matInput currencyMask placeholder="Balance" disabled [(ngModel)]="listUsers[userIndex].MotherCardBalance"
+                      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="font-size: 60px; height: 86.5px;"
+                      value="0.00">
                   </mat-form-field>
                   <mat-form-field>
                     <mat-select placeholder="Status" [disabled]="isUserFieldDisabled" [(ngModel)]="listUsers[userIndex].Status">
@@ -166,14 +173,16 @@
                             <b>Show</b>
                           </div>
                         </div>
-                        <wj-combo-box #cboUserFormNumberOfRows [itemsSource]="cboUserFormShowNumberOfRows" [isEditable]="false" [isRequired]="true"
-                          [displayMemberPath]="'rowString'" [selectedValuePath]="'rowNumber'" (selectedIndexChanged)="cboUserFormShowNumberOfRowsOnSelectedIndexChanged(cboUserFormNumberOfRows.selectedValue)"
+                        <wj-combo-box #cboUserFormNumberOfRows [itemsSource]="cboUserFormShowNumberOfRows" [isEditable]="false"
+                          [isRequired]="true" [displayMemberPath]="'rowString'" [selectedValuePath]="'rowNumber'"
+                          (selectedIndexChanged)="cboUserFormShowNumberOfRowsOnSelectedIndexChanged(cboUserFormNumberOfRows.selectedValue)"
                           style="width: 180px;">
                         </wj-combo-box>
                       </div>
                     </td>
                     <td style="width: 20%;" align="right">
-                      <button type="button" [hidden]="isAddButtonHide" class="btn btn-primary" [disabled]="isBtnUserFormButtonsDisabled" (click)="btnAddUserFormOnclick(newUserFormModalTemplate)">
+                      <button type="button" [hidden]="isAddButtonHide" class="btn btn-primary" [disabled]="isBtnUserFormButtonsDisabled"
+                        (click)="btnAddUserFormOnclick(newUserFormModalTemplate)">
                         <i class="fa fa-plus fa-fw"></i>Add
                       </button>
                     </td>
@@ -182,20 +191,21 @@
               </div>
               <div class="card-body">
                 <mat-progress-bar [hidden]="isUserFormProgressBarHidden" [color]="'primary'" [mode]="'indeterminate'"></mat-progress-bar>
-                <wj-flex-grid #userFormFlexGrid [itemsSource]="userFormCollectionView" [selectionMode]="3" [frozenColumns]="2">
+                <wj-flex-grid #userFormFlexGrid [itemsSource]="userFormCollectionView" [selectionMode]="3"
+                  [frozenColumns]="2">
                   <wj-flex-grid-filter></wj-flex-grid-filter>
                   <wj-flex-grid-column *ngIf="isShowEditColumn" [header]="Edit" [isReadOnly]="true" [width]="95">
                     <ng-template wjFlexGridCellTemplate [cellType]="'Cell'">
-                      <button [hidden]="isEditButtonHide" type="button" class="btn btn-primary btn-block btn-xs" [disabled]="isBtnUserFormButtonsDisabled"
-                        (click)="btnEditUserFormOnclick(newUserFormModalTemplate)">
+                      <button [hidden]="isEditButtonHide" type="button" class="btn btn-primary btn-block btn-xs"
+                        [disabled]="isBtnUserFormButtonsDisabled" (click)="btnEditUserFormOnclick(newUserFormModalTemplate)">
                         <i class="fa fa-edit fa-fw"></i> Edit
                       </button>
                     </ng-template>
                   </wj-flex-grid-column>
                   <wj-flex-grid-column *ngIf="isShowDeleteColumn" [header]="Delete" [isReadOnly]="true" [width]="95">
                     <ng-template wjFlexGridCellTemplate [cellType]="'Cell'">
-                      <button [hidden]="isDeleteButtonHide" type="button" class="btn btn-danger btn-block btn-xs" [disabled]="isBtnUserFormButtonsDisabled"
-                        (click)="btnDeleteUserFormOnclick(deleteUserFormModalTemplate)">
+                      <button [hidden]="isDeleteButtonHide" type="button" class="btn btn-danger btn-block btn-xs"
+                        [disabled]="isBtnUserFormButtonsDisabled" (click)="btnDeleteUserFormOnclick(deleteUserFormModalTemplate)">
                         <i class="fa fa-trash fa-fw"></i> Delete
                       </button>
                     </ng-template>
@@ -240,40 +250,58 @@
         <i class="fa fa-key fa-fw"></i> Register User</h4>
     </div>
     <div class="modal-body">
-      <div class="form-container">
-        <mat-form-field>
-          <input matInput placeholder="Fullname" [(ngModel)]="user.FullName" autocomplete="off" autocorrect="off" autocapitalize="off"
-            spellcheck="false">
-        </mat-form-field>
-        <mat-form-field>
-          <textarea matInput placeholder="Address" rows="5" style="height: 87px; resize: none;" [(ngModel)]="user.Address" autocomplete="off"
-            autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Email Address" [(ngModel)]="user.Email" autocomplete="off" autocorrect="off" autocapitalize="off"
-            spellcheck="false">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Contact Number" [(ngModel)]="user.ContactNumber" autocomplete="off" autocorrect="off" autocapitalize="off"
-            spellcheck="false">
-        </mat-form-field>
+      <mat-tab-group>
+        <mat-tab label="User Information">
+          <div class="form-container">
+            <br />
 
-        <br />
-        <br />
+            <mat-form-field>
+              <input matInput placeholder="Fullname" [(ngModel)]="user.FullName" autocomplete="off" autocorrect="off"
+                autocapitalize="off" spellcheck="false">
+            </mat-form-field>
+            <mat-form-field>
+              <textarea matInput placeholder="Address" rows="5" [(ngModel)]="user.Address" autocomplete="off"
+                autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Email Address" [(ngModel)]="user.Email" autocomplete="off" autocorrect="off"
+                autocapitalize="off" spellcheck="false">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Contact Number" [(ngModel)]="user.ContactNumber" autocomplete="off"
+                autocorrect="off" autocapitalize="off" spellcheck="false">
+            </mat-form-field>
+          </div>
+        </mat-tab>
+        <mat-tab label="Credentials and Card Details">
+          <div class="form-container">
+            <br />
 
-        <mat-form-field>
-          <input matInput placeholder="Username" [(ngModel)]="user.UserName" autocomplete="off" autocorrect="off" autocapitalize="off"
-            spellcheck="false">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="password" placeholder="Password" [(ngModel)]="user.Password" autocomplete="off" autocorrect="off" autocapitalize="off"
-            spellcheck="false">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="password" placeholder="Confirm Password" [(ngModel)]="user.ConfirmPassword" autocomplete="off" autocorrect="off"
-            autocapitalize="off" spellcheck="false">
-        </mat-form-field>
-      </div>
+            <mat-form-field>
+              <input matInput type="text" placeholder="Mother Card Number" [(ngModel)]="user.MotherCardNumber"
+                autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+            </mat-form-field>
+
+            <br />
+            <br />
+
+            <mat-form-field>
+              <input matInput placeholder="Username" [(ngModel)]="user.UserName" autocomplete="off" autocorrect="off"
+                autocapitalize="off" spellcheck="false">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="password" placeholder="Password" [(ngModel)]="user.Password" autocomplete="off"
+                autocorrect="off" autocapitalize="off" spellcheck="false">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="password" placeholder="Confirm Password" [(ngModel)]="user.ConfirmPassword"
+                autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+            </mat-form-field>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
+
     </div>
     <div class="modal-footer">
       <button type="button" [hidden]="isAddButtonHide" class="btn btn-success" style="margin-right: 5px;" id="btnRegisterUser"

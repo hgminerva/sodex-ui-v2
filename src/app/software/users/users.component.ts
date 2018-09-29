@@ -39,7 +39,8 @@ export class UsersComponent implements OnInit {
     ContactNumber: "",
     UserName: "",
     Password: "",
-    ConfirmPassword: ""
+    ConfirmPassword: "",
+    MotherCardNumber: ""
   };
 
   public userIndex: number = 0;
@@ -279,6 +280,7 @@ export class UsersComponent implements OnInit {
       UserName: this.user.UserName,
       Password: this.user.Password,
       ConfirmPassword: this.user.ConfirmPassword,
+      MotherCardNumber: this.user.MotherCardNumber
     };
 
     this.usersService.register(objUser);
