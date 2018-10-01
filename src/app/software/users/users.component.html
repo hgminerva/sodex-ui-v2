@@ -150,6 +150,14 @@
                       <mat-option [value]="'Disable'">Disable</mat-option>
                     </mat-select>
                   </mat-form-field>
+                  <mat-form-field>
+                    <mat-select placeholder="User Type" [disabled]="isUserFieldDisabled" [(ngModel)]="listUsers[userIndex].UserTypeId">
+                      <mat-option>--</mat-option>
+                      <mat-option *ngFor="let userType of userTypeData" [value]="userType.Id">
+                        {{ userType.UserType }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 </div>
               </div>
             </div>

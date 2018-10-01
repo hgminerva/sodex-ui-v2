@@ -47,6 +47,7 @@ export class UsersComponent implements OnInit {
   public listUsers: any = [{
     TabNumber: 0,
     Id: 0,
+    UserTypeId: 0,
     Username: "",
     FullName: "",
     Address: "",
@@ -84,6 +85,9 @@ export class UsersComponent implements OnInit {
   public isUserFormProgressBarHidden = false;
   public newUserFormModalRef: BsModalRef;
   public deleteUserFormModalRef: BsModalRef;
+
+  public userTypeData: ObservableArray = new ObservableArray();
+  public getUserTypesSubscription: any;
 
   public formData: ObservableArray = new ObservableArray();
   public getFormsSubscription: any;
@@ -195,6 +199,7 @@ export class UsersComponent implements OnInit {
     this.listUsers.push({
       TabNumber: this.selectedTab.value,
       Id: currentUser.Id,
+      UserTypeId: currentUser.UserTypeId,
       Username: currentUser.Username,
       FullName: currentUser.FullName,
       Address: currentUser.Address,
@@ -213,6 +218,7 @@ export class UsersComponent implements OnInit {
       let btnUpdateUser: Element = document.getElementById("btnUpdateUser");
       btnUpdateUser.setAttribute("disabled", "disabled");
 
+      this.getUserTypes();
       this.getUserForms();
     }, 100);
   }
@@ -336,7 +342,8 @@ export class UsersComponent implements OnInit {
         Email: this.listUsers[this.userIndex].Email,
         ContactNumber: this.listUsers[this.userIndex].ContactNumber,
         MotherCardNumber: this.listUsers[this.userIndex].MotherCardNumber,
-        Status: this.listUsers[this.userIndex].Status
+        Status: this.listUsers[this.userIndex].Status,
+        UserTypeId: this.listUsers[this.userIndex].UserTypeId
       };
 
       let btnUpdateUser: Element = document.getElementById("btnUpdateUser");
@@ -391,6 +398,28 @@ export class UsersComponent implements OnInit {
     this.userFormFlexGrid.refresh();
   }
 
+  public getUserTypes() {
+    this.usersService.getUserTypes();
+    this.getUserTypesSubscription = this.usersService.getUserTypesObservable.subscribe(
+      data => {
+        let userTypesObservableArray = new ObservableArray();
+
+        if (data.length > 0) {
+          for (var i = 0; i <= data.length - 1; i++) {
+            userTypesObservableArray.push({
+              Id: data[i].Id,
+              UserType: data[i].UserType
+            });
+          }
+        }
+
+        this.userTypeData = userTypesObservableArray;
+
+        if (this.getUserTypesSubscription != null) this.getUserTypesSubscription.unsubscribe();
+      }
+    );
+  }
+  
   public getUserForms(): void {
     this.userFormData = new ObservableArray();
     this.userFormCollectionView = new CollectionView(this.userFormData);

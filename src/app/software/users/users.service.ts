@@ -20,6 +20,9 @@ export class UsersService {
   public options = new RequestOptions({ headers: this.headers });
   private defaultAPIURLHost: string = this.appSettings.defaultAPIURLHost;
 
+  public getUserTypesSource = new Subject<ObservableArray>();
+  public getUserTypesObservable = this.getUserTypesSource.asObservable();
+
   public getUsersSource = new Subject<ObservableArray>();
   public getUsersObservable = this.getUsersSource.asObservable();
 
@@ -43,6 +46,27 @@ export class UsersService {
 
   public deleteUserFormSource = new Subject<string[]>();
   public deleteUserFormObservable = this.deleteUserFormSource.asObservable();
+
+  public getUserTypes(): void {
+    let userTypesObservableArray = new ObservableArray();
+    this.getUserTypesSource.next(userTypesObservableArray);
+
+    this.http.get(this.defaultAPIURLHost + "/api/user/userType/dropdown/list", this.options).subscribe(
+      response => {
+        var results = new ObservableArray(response.json());
+        if (results.length > 0) {
+          for (var i = 0; i <= results.length - 1; i++) {
+            userTypesObservableArray.push({
+              Id: results[i].Id,
+              UserType: results[i].UserType
+            });
+          }
+        }
+
+        this.getUserTypesSource.next(userTypesObservableArray);
+      }
+    );
+  }
 
   public getUsers(): void {
     let usersObservableArray = new ObservableArray();
