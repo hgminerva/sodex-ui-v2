@@ -87,10 +87,11 @@
         <wj-flex-grid #ledgersFlexGrid [itemsSource]="ledgersCollectionView" [selectionMode]="3" [frozenColumns]="2">
           <wj-flex-grid-filter></wj-flex-grid-filter>
           <wj-flex-grid-column [header]="'Date'" [binding]="'LedgerDateTime'" [isReadOnly]="true" [width]="'1*'"></wj-flex-grid-column>
+          <wj-flex-grid-column [header]="'Payee'" [binding]="'Payee'" [isReadOnly]="true" [width]="'3*'"></wj-flex-grid-column>
           <wj-flex-grid-column [header]="'Particulars'" [binding]="'Particulars'" [isReadOnly]="true" [width]="'3*'"></wj-flex-grid-column>
           <wj-flex-grid-column [header]="'Debit'" [binding]="'DebitAmountDisplay'" [isReadOnly]="true" [width]="'2*'" [align]="'right'"></wj-flex-grid-column>
           <wj-flex-grid-column [header]="'Credit'" [binding]="'CreditAmountDisplay'" [isReadOnly]="true" [width]="'2*'" [align]="'right'"></wj-flex-grid-column>
-          <wj-flex-grid-column [header]="'Balance'" [binding]="'BalanceAmountDisplay'" [isReadOnly]="true" [width]="'2*'" [align]="'right'"></wj-flex-grid-column>
+          <wj-flex-grid-column [header]="'Running Balance'" [binding]="'RunningBalanceDisplay'" [isReadOnly]="true" [width]="'2*'" [align]="'right'"></wj-flex-grid-column>
         </wj-flex-grid>
       </div>
       <div class="card-footer">

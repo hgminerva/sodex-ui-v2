@@ -175,10 +175,11 @@ export class ReportsComponent implements OnInit {
   public btnExportLedgerOnclick(): void {
     let data: any[] = [{
       Date: "Date",
+      Payee: "Payee",
       Particulars: "Particulars",
       DebitAmount: "Debit",
       CreditAmount: "Credit",
-      BalanceAmount: "Balance"
+      RunningBalance: "Running Balance"
     }];
 
     if (this.ledgersCollectionView.items.length > 0) {
@@ -186,10 +187,11 @@ export class ReportsComponent implements OnInit {
         for (let i = 0; i < this.ledgersCollectionView.items.length; i++) {
           data.push({
             Date: this.ledgersCollectionView.items[i].LedgerDateTime,
+            Payee: this.ledgersCollectionView.items[i].Payee,
             Particulars: this.ledgersCollectionView.items[i].Particulars,
             DebitAmount: this.ledgersCollectionView.items[i].DebitAmount,
             CreditAmount: this.ledgersCollectionView.items[i].CreditAmount,
-            BalanceAmount: this.ledgersCollectionView.items[i].BalanceAmount,
+            RunningBalance: this.ledgersCollectionView.items[i].RunningBalance,
           });
         }
 

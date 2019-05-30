@@ -91,6 +91,12 @@
           <input matInput currencyMask placeholder="Mother Card Current Balance" [(ngModel)]="motherCardBalance" autocomplete="off"
             autocorrect="off" autocapitalize="off" spellcheck="false" value="0.00" disabled />
         </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Type" [(ngModel)]="cboTransferType">
+            <mat-option [value]="'Load'">Load</mat-option>
+            <mat-option [value]="'Cancel'">Cancel</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
     <div class="modal-footer">

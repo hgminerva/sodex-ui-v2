@@ -45,6 +45,8 @@ export class TransferComponent implements OnInit {
     Status: ""
   };
 
+  public cboTransferType: String = "Load";
+
   public getUserFormsSubscription: any;
   public isLoadingSpinnerHidden: boolean = false;
   public isContentHidden: boolean = true;
