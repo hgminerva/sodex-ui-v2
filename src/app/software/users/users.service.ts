@@ -61,7 +61,7 @@ export class UsersService {
               UserType: results[i].UserType
             });
           }
-        }
+        } 
 
         this.getUserTypesSource.next(userTypesObservableArray);
       }

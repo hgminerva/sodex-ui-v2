@@ -1,0 +1,13 @@
+.editorconfig
+.gitignore
+angular.json
+dirlist.txt
+dist
+e2e
+node_modules
+package-lock.json
+package.json
+README.md
+src
+tsconfig.json
+tslint.json

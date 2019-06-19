@@ -240,7 +240,7 @@ export class UsersComponent implements OnInit {
         tabNumber++;
       }
 
-      this.userIndex = this.listUsers.indexOf(this.listUsers[currentUserIndex]);
+      this.userIndex = this.listUsers.indexOf(this.listUsers[currentUserIndex]); 
     }
 
     this.detailTabs.splice(index, 1);

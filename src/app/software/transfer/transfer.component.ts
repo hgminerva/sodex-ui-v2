@@ -138,7 +138,8 @@ export class TransferComponent implements OnInit {
 
     let objTransferData: any = {
       DestinationCardNumber: this.card.CardNumber,
-      Amount: this.amountToBeTransfered
+      Amount: this.amountToBeTransfered,
+      TransferType: this.cboTransferType
     }
 
     this.transferService.transferAmount(objTransferData);
