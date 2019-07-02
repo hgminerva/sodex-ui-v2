@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CheckBalanceService } from './check-balance.service';
 import { ToastrService } from 'ngx-toastr';
 import { SoftwareUserFormsService } from '../software.user.forms.service';
@@ -16,6 +16,16 @@ export class CheckBalanceComponent implements OnInit {
     private softwareUserFormsService: SoftwareUserFormsService,
     private router: Router
   ) { }
+
+  @ViewChild('cardnumberFld') cnfield: ElementRef;
+
+  public focusCNField(): void {
+    this.cnfield.nativeElement.focus();
+    // const input: HTMLInputElement = this.cnfield.nativeElement as HTMLInputElement;
+
+    // input.focus();
+    // input.select();
+  }
 
   public getCardSubscription: any;
 
@@ -113,6 +123,10 @@ export class CheckBalanceComponent implements OnInit {
           }
 
           if (this.getUserFormsSubscription != null) this.getUserFormsSubscription.unsubscribe();
+          
+          setTimeout(() => {
+            this.focusCNField();
+          }, 100);
         }
       );
     }, 1000);

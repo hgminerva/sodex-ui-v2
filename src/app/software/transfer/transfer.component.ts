@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ElementRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { TransferService } from './transfer.service';
@@ -19,6 +19,12 @@ export class TransferComponent implements OnInit {
     private softwareUserFormsService: SoftwareUserFormsService,
     private router: Router
   ) { }
+
+  @ViewChild('cardnumberFld') cnfield: ElementRef;
+
+  public focusCNField(): void {
+    this.cnfield.nativeElement.focus();
+  }
 
   public modalRef: BsModalRef;
 
@@ -61,13 +67,14 @@ export class TransferComponent implements OnInit {
   public canTransfer: boolean = false;
 
   public openTransferModal(template: TemplateRef<any>): void {
+
     if (this.card.CardNumber != "") {
       this.amountToBeTransfered = 0;
 
       this.transferService.getMotherCardBalance();
       this.getMotherCardBalanceSubscription = this.transferService.getMotherCardBalancedObservable.subscribe(
         data => {
-          this.modalRef = this.modalService.show(template);
+          this.modalRef = this.modalService.show(template, {backdrop: 'static', keyboard: false});
 
           if (data != null) {
             this.motherCardBalance = data;
@@ -208,6 +215,10 @@ export class TransferComponent implements OnInit {
           } else {
             this.router.navigateByUrl("/software/forbidden", { skipLocationChange: true });
           }
+
+          setTimeout(() => {
+            this.focusCNField();
+          }, 100);
 
           if (this.getUserFormsSubscription != null) this.getUserFormsSubscription.unsubscribe();
         }

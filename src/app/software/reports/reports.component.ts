@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ReportsService } from './reports.service';
 import { ToastrService } from 'ngx-toastr';
 import { ObservableArray, CollectionView } from 'wijmo/wijmo';
@@ -19,6 +19,12 @@ export class ReportsComponent implements OnInit {
     private softwareUserFormsService: SoftwareUserFormsService,
     private router: Router
   ) { }
+
+  @ViewChild('cardnumberFld') cnfield: ElementRef;
+
+  public focusCNField(): void {
+    this.cnfield.nativeElement.focus();
+  }
 
   public cardNumber: string;
   public dateStartValue = new Date();
@@ -240,6 +246,10 @@ export class ReportsComponent implements OnInit {
           }
 
           if (this.getUserFormsSubscription != null) this.getUserFormsSubscription.unsubscribe();
+          
+          setTimeout(() => {
+            this.focusCNField();
+          }, 100);
         }
       );
     }, 1000);
