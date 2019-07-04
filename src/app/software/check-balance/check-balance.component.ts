@@ -27,6 +27,10 @@ export class CheckBalanceComponent implements OnInit {
     // input.select();
   }
 
+  public selectCNField(): void {
+    this.cnfield.nativeElement.select();
+  }
+
   public getCardSubscription: any;
 
   public card: any = {
@@ -67,6 +71,11 @@ export class CheckBalanceComponent implements OnInit {
             this.card.Status = data.Status;
 
             this.toastr.success("Card details successfully loaded.");
+
+            setTimeout(()=> {
+              this.selectCNField();
+            }, 100);
+
           } else {
             this.toastr.error("No card details for this card number.");
 
@@ -78,6 +87,10 @@ export class CheckBalanceComponent implements OnInit {
             this.card.Balance = 0;
             this.card.Particulars = "";
             this.card.Status = "";
+
+            setTimeout(()=> {
+              this.selectCNField();
+            }, 100);
           }
 
           if (this.getCardSubscription != null) this.getCardSubscription.unsubscribe();
@@ -91,6 +104,10 @@ export class CheckBalanceComponent implements OnInit {
   public onCardNumberKeyPress(event: any) {
     if (event.key == "Enter") {
       this.btnLoadCardDetailsOnclick();
+
+      setTimeout(()=> {
+        this.selectCNField();
+      }, 100);
     }
   }
 

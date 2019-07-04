@@ -26,6 +26,10 @@ export class ReportsComponent implements OnInit {
     this.cnfield.nativeElement.focus();
   }
 
+  public selectCNField(): void {
+    this.cnfield.nativeElement.select();
+  }
+
   public cardNumber: string;
   public dateStartValue = new Date();
   public dateEndValue = new Date();
@@ -172,6 +176,10 @@ export class ReportsComponent implements OnInit {
       this.isBtnGenerateDisabled = false;
       if (event.key == "Enter") {
         this.btnGenerateLedgerOnclick();
+
+        setTimeout(()=> {
+          this.selectCNField();
+        }, 100);
       }
     } else {
       this.isBtnGenerateDisabled = true;

@@ -25,6 +25,10 @@ export class TransferComponent implements OnInit {
   public focusCNField(): void {
     this.cnfield.nativeElement.focus();
   }
+  
+  public selectCNField(): void {
+    this.cnfield.nativeElement.select();
+  }
 
   public modalRef: BsModalRef;
 
@@ -108,9 +112,12 @@ export class TransferComponent implements OnInit {
             this.isCardDetailLoaded = true;
             this.isBtnTransferDisable = false;
 
-            if (this.canTransfer) {
-              this.openTransferModal(this.trasnferModalTemplate);
-            }
+            setTimeout(()=> {
+              this.selectCNField();
+            }, 100);
+            // if (this.canTransfer) {
+            //   this.openTransferModal(this.trasnferModalTemplate);
+            // }
           } else {
             this.toastr.error("No card details for this card number.");
 
@@ -125,6 +132,10 @@ export class TransferComponent implements OnInit {
 
             this.isCardDetailLoaded = false;
             this.isBtnTransferDisable = false;
+
+            setTimeout(()=> {
+              this.selectCNField();
+            }, 100);
           }
 
           if (this.getCardSubscription != null) this.getCardSubscription.unsubscribe();
@@ -164,6 +175,11 @@ export class TransferComponent implements OnInit {
           this.modalRef.hide();
 
           this.btnLoadCardDetailsOnclick();
+
+          setTimeout(()=> {
+            this.selectCNField();
+          }, 100);
+
         } else if (data[0] == "failed") {
           this.toastr.error(data[1]);
 
@@ -182,6 +198,10 @@ export class TransferComponent implements OnInit {
 
     if (event.key == "Enter") {
       this.btnLoadCardDetailsOnclick();
+
+      setTimeout(()=> {
+        this.selectCNField();
+      }, 100);
     }
   }
 
