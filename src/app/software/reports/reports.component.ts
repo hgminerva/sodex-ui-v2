@@ -52,6 +52,42 @@ export class ReportsComponent implements OnInit {
 
   public cboShowNumberOfRows: ObservableArray = new ObservableArray();
 
+  public ledgerDebitDateStartValue = new Date();
+  public ledgerDebitDateEndValue = new Date();
+
+  public getLedgerDebitSubscription: any;
+
+  public ledgerDebitData: ObservableArray = new ObservableArray();
+  public ledgerDebitCollectionView: CollectionView = new CollectionView(this.ledgersData);
+  public ledgerDebitNumberOfPageIndex: number = 15;
+
+  public isLedgerDebitProgressBarHidden = true;
+
+  @ViewChild('ledgerDebitFlexGrid') ledgerDebitFlexGrid: WjFlexGrid;
+
+  public totalLedgerDebitDebitAmount: number = 0;
+  public isBtnLedgerDebitGenerateDisabled: Boolean = false;
+
+  public cboLedgerDebitShowNumberOfRows: ObservableArray = new ObservableArray();
+
+  public ledgerCreditDateStartValue = new Date();
+  public ledgerCreditDateEndValue = new Date();
+
+  public getLedgerCreditSubscription: any;
+
+  public ledgerCreditData: ObservableArray = new ObservableArray();
+  public ledgerCreditCollectionView: CollectionView = new CollectionView(this.ledgersData);
+  public ledgerCreditNumberOfPageIndex: number = 15;
+
+  public isLedgerCreditProgressBarHidden = true;
+
+  @ViewChild('ledgerCreditFlexGrid') ledgerCreditFlexGrid: WjFlexGrid;
+
+  public totalLedgerCreditCreditAmount: number = 0;
+  public isBtnLedgerCreditGenerateDisabled: Boolean = false;
+
+  public cboLedgerCreditShowNumberOfRows: ObservableArray = new ObservableArray();
+
   public getUserFormsSubscription: any;
   public isLoadingSpinnerHidden: boolean = false;
   public isContentHidden: boolean = true;
@@ -87,6 +123,16 @@ export class ReportsComponent implements OnInit {
         rowNumber: rows,
         rowString: rowsString
       });
+
+      this.cboLedgerDebitShowNumberOfRows.push({
+        rowNumber: rows,
+        rowString: rowsString
+      });
+
+      this.cboLedgerCreditShowNumberOfRows.push({
+        rowNumber: rows,
+        rowString: rowsString
+      });
     }
   }
 
@@ -96,6 +142,22 @@ export class ReportsComponent implements OnInit {
     this.ledgersCollectionView.pageSize = this.ledgersNumberOfPageIndex;
     this.ledgersCollectionView.refresh();
     this.ledgersFlexGrid.refresh();
+  }
+
+  public cboLedgerDebitShowNumberOfRowsOnSelectedIndexChanged(selectedValue: any): void {
+    this.ledgerDebitNumberOfPageIndex = selectedValue;
+
+    this.ledgerDebitCollectionView.pageSize = this.ledgerDebitNumberOfPageIndex;
+    this.ledgerDebitCollectionView.refresh();
+    this.ledgerDebitFlexGrid.refresh();
+  }
+
+  public cboLedgerCreditShowNumberOfRowsOnSelectedIndexChanged(selectedValue: any): void {
+    this.ledgerCreditNumberOfPageIndex = selectedValue;
+
+    this.ledgerCreditCollectionView.pageSize = this.ledgerCreditNumberOfPageIndex;
+    this.ledgerCreditCollectionView.refresh();
+    this.ledgerCreditFlexGrid.refresh();
   }
 
   public getCardsData(): void {
@@ -150,6 +212,102 @@ export class ReportsComponent implements OnInit {
     );
   }
 
+  public getLedgerDebitData(): void {
+    this.isBtnLedgerDebitGenerateDisabled = true;
+
+    this.totalLedgerDebitDebitAmount = 0;
+
+    let startDate = ('0' + (this.ledgerDebitDateStartValue.getMonth() + 1)).slice(-2) + '-' + ('0' + this.ledgerDebitDateStartValue.getDate()).slice(-2) + '-' + this.ledgerDebitDateStartValue.getFullYear();
+    let endDate = ('0' + (this.ledgerDebitDateEndValue.getMonth() + 1)).slice(-2) + '-' + ('0' + this.ledgerDebitDateEndValue.getDate()).slice(-2) + '-' + this.ledgerDebitDateEndValue.getFullYear();
+
+    this.reportsService.getDebitLedgers(startDate, endDate);
+    this.getLedgerDebitSubscription = this.reportsService.getDebitLedgersObservable.subscribe(
+      data => {
+        if (data.length > 0) {
+          this.ledgerDebitData = data;
+          this.ledgerDebitCollectionView = new CollectionView(this.ledgerDebitData);
+          this.ledgerDebitCollectionView.pageSize = this.ledgerDebitNumberOfPageIndex;
+          this.ledgerDebitCollectionView.trackChanges = true;
+          this.ledgerDebitCollectionView.refresh();
+          this.ledgerDebitFlexGrid.refresh();
+
+          for (let p = 1; p <= this.ledgerDebitCollectionView.pageCount; p++) {
+            for (let i = 0; i < this.ledgerDebitCollectionView.items.length; i++) {
+              this.totalLedgerDebitDebitAmount += this.ledgerDebitCollectionView.items[i].DebitAmount;
+            }
+
+            if (p == this.ledgerDebitCollectionView.pageCount) {
+              this.ledgerDebitCollectionView.moveToFirstPage();
+            } else {
+              this.ledgerDebitCollectionView.moveToNextPage();
+            }
+          }
+
+          this.toastr.success("Generate Successful!");
+        } else {
+          this.toastr.error("No data!");
+        }
+
+        this.isLedgerDebitProgressBarHidden = true;
+        this.isBtnLedgerDebitGenerateDisabled = false;
+
+        let btnGenerateLedgerDebit: Element = document.getElementById("btnGenerateLedgerDebit");
+        btnGenerateLedgerDebit.innerHTML = "<i class='fa fa-refresh fa-fw'></i> Generate";
+        btnGenerateLedgerDebit.removeAttribute("disabled");
+
+        if (this.getLedgerDebitSubscription != null) this.getLedgerDebitSubscription.unsubscribe();
+      }
+    );
+  }
+
+  public getLedgerCreditData(): void {
+    this.isBtnLedgerCreditGenerateDisabled = true;
+
+    this.totalLedgerCreditCreditAmount = 0;
+
+    let startDate = ('0' + (this.ledgerCreditDateStartValue.getMonth() + 1)).slice(-2) + '-' + ('0' + this.ledgerCreditDateStartValue.getDate()).slice(-2) + '-' + this.ledgerCreditDateStartValue.getFullYear();
+    let endDate = ('0' + (this.ledgerCreditDateEndValue.getMonth() + 1)).slice(-2) + '-' + ('0' + this.ledgerCreditDateEndValue.getDate()).slice(-2) + '-' + this.ledgerCreditDateEndValue.getFullYear();
+
+    this.reportsService.getCreditLedgers(startDate, endDate);
+    this.getLedgerCreditSubscription = this.reportsService.getCreditLedgersObservable.subscribe(
+      data => {
+        if (data.length > 0) {
+          this.ledgerCreditData = data;
+          this.ledgerCreditCollectionView = new CollectionView(this.ledgerCreditData);
+          this.ledgerCreditCollectionView.pageSize = this.ledgerCreditNumberOfPageIndex;
+          this.ledgerCreditCollectionView.trackChanges = true;
+          this.ledgerCreditCollectionView.refresh();
+          this.ledgerCreditFlexGrid.refresh();
+
+          for (let p = 1; p <= this.ledgerCreditCollectionView.pageCount; p++) {
+            for (let i = 0; i < this.ledgerCreditCollectionView.items.length; i++) {
+              this.totalLedgerCreditCreditAmount += this.ledgerCreditCollectionView.items[i].CreditAmount;
+            }
+
+            if (p == this.ledgerCreditCollectionView.pageCount) {
+              this.ledgerCreditCollectionView.moveToFirstPage();
+            } else {
+              this.ledgerCreditCollectionView.moveToNextPage();
+            }
+          }
+
+          this.toastr.success("Generate Successful!");
+        } else {
+          this.toastr.error("No data!");
+        }
+
+        this.isLedgerCreditProgressBarHidden = true;
+        this.isBtnLedgerCreditGenerateDisabled = false;
+
+        let btnGenerateLedgerCredit: Element = document.getElementById("btnGenerateLedgerCredit");
+        btnGenerateLedgerCredit.innerHTML = "<i class='fa fa-refresh fa-fw'></i> Generate";
+        btnGenerateLedgerCredit.removeAttribute("disabled");
+
+        if (this.getLedgerCreditSubscription != null) this.getLedgerCreditSubscription.unsubscribe();
+      }
+    );
+  }
+
   public btnGenerateLedgerOnclick() {
     if (this.cardNumber != "") {
       let btnGenerate: Element = document.getElementById("btnGenerate");
@@ -171,13 +329,47 @@ export class ReportsComponent implements OnInit {
     }
   }
 
+  public btnGenerateLedgerDebitOnclick() {
+    let btnGenerateLedgerDebit: Element = document.getElementById("btnGenerateLedgerDebit");
+    btnGenerateLedgerDebit.innerHTML = "<i class='fa fa-refresh fa-fw'></i> Generating...";
+    btnGenerateLedgerDebit.setAttribute("disabled", "disabled");
+
+    this.isLedgerDebitProgressBarHidden = false;
+
+    this.ledgerDebitData = new ObservableArray();
+    this.ledgerDebitCollectionView = new CollectionView(this.ledgerDebitData);
+    this.ledgerDebitCollectionView.pageSize = 15;
+    this.ledgerDebitCollectionView.trackChanges = true;
+    this.ledgerDebitCollectionView.refresh();
+    this.ledgerDebitFlexGrid.refresh();
+
+    this.getLedgerDebitData();
+  }
+
+  public btnGenerateLedgerCreditOnclick() {
+    let btnGenerateLedgerCredit: Element = document.getElementById("btnGenerateLedgerCredit");
+    btnGenerateLedgerCredit.innerHTML = "<i class='fa fa-refresh fa-fw'></i> Generating...";
+    btnGenerateLedgerCredit.setAttribute("disabled", "disabled");
+
+    this.isLedgerCreditProgressBarHidden = false;
+
+    this.ledgerCreditData = new ObservableArray();
+    this.ledgerCreditCollectionView = new CollectionView(this.ledgerCreditData);
+    this.ledgerCreditCollectionView.pageSize = 15;
+    this.ledgerCreditCollectionView.trackChanges = true;
+    this.ledgerCreditCollectionView.refresh();
+    this.ledgerCreditFlexGrid.refresh();
+
+    this.getLedgerCreditData();
+  }
+
   public onCardNumberKeyPress(event: any) {
     if (this.cardNumber != "") {
       this.isBtnGenerateDisabled = false;
       if (event.key == "Enter") {
         this.btnGenerateLedgerOnclick();
 
-        setTimeout(()=> {
+        setTimeout(() => {
           this.selectCNField();
         }, 100);
       }
@@ -224,6 +416,72 @@ export class ReportsComponent implements OnInit {
     new Angular5Csv(data, cardNumber + '_From(' + startDate + ")_To(" + endDate + ")");
   }
 
+  public btnExportLedgerDebitOnclick(): void {
+    let data: any[] = [{
+      Date: "Date",
+      Payee: "Payee",
+      Particulars: "Particulars",
+      DebitAmount: "Debit"
+    }];
+
+    if (this.ledgerDebitCollectionView.items.length > 0) {
+      for (let p = 1; p <= this.ledgerDebitCollectionView.pageCount; p++) {
+        for (let i = 0; i < this.ledgerDebitCollectionView.items.length; i++) {
+          data.push({
+            Date: this.ledgerDebitCollectionView.items[i].LedgerDateTime,
+            Payee: this.ledgerDebitCollectionView.items[i].Payee,
+            Particulars: this.ledgerDebitCollectionView.items[i].Particulars,
+            DebitAmount: this.ledgerDebitCollectionView.items[i].DebitAmount
+          });
+        }
+
+        if (p == this.ledgerDebitCollectionView.pageCount) {
+          this.ledgerDebitCollectionView.moveToFirstPage();
+        } else {
+          this.ledgerDebitCollectionView.moveToNextPage();
+        }
+      }
+    }
+
+    let startDate = ('0' + (this.ledgerDebitDateStartValue.getMonth() + 1)).slice(-2) + '-' + ('0' + this.ledgerDebitDateStartValue.getDate()).slice(-2) + '-' + this.ledgerDebitDateStartValue.getFullYear();
+    let endDate = ('0' + (this.ledgerDebitDateEndValue.getMonth() + 1)).slice(-2) + '-' + ('0' + this.ledgerDebitDateEndValue.getDate()).slice(-2) + '-' + this.ledgerDebitDateEndValue.getFullYear();
+
+    new Angular5Csv(data, 'Debit_Ledgers_From(' + startDate + ")_To(" + endDate + ")");
+  }
+
+  public btnExportLedgerCreditOnclick(): void {
+    let data: any[] = [{
+      Date: "Date",
+      Payee: "Payee",
+      Particulars: "Particulars",
+      CreditAmount: "Credit"
+    }];
+
+    if (this.ledgerCreditCollectionView.items.length > 0) {
+      for (let p = 1; p <= this.ledgerCreditCollectionView.pageCount; p++) {
+        for (let i = 0; i < this.ledgerCreditCollectionView.items.length; i++) {
+          data.push({
+            Date: this.ledgerCreditCollectionView.items[i].LedgerDateTime,
+            Payee: this.ledgerCreditCollectionView.items[i].Payee,
+            Particulars: this.ledgerCreditCollectionView.items[i].Particulars,
+            CreditAmount: this.ledgerCreditCollectionView.items[i].CreditAmount
+          });
+        }
+
+        if (p == this.ledgerCreditCollectionView.pageCount) {
+          this.ledgerCreditCollectionView.moveToFirstPage();
+        } else {
+          this.ledgerCreditCollectionView.moveToNextPage();
+        }
+      }
+    }
+
+    let startDate = ('0' + (this.ledgerCreditDateStartValue.getMonth() + 1)).slice(-2) + '-' + ('0' + this.ledgerCreditDateStartValue.getDate()).slice(-2) + '-' + this.ledgerCreditDateStartValue.getFullYear();
+    let endDate = ('0' + (this.ledgerCreditDateEndValue.getMonth() + 1)).slice(-2) + '-' + ('0' + this.ledgerCreditDateEndValue.getDate()).slice(-2) + '-' + this.ledgerCreditDateEndValue.getFullYear();
+
+    new Angular5Csv(data, 'Credit_Ledgers_From(' + startDate + ")_To(" + endDate + ")");
+  }
+
   ngOnInit() {
     this.createCboShowNumberOfRows();
     setTimeout(() => {
@@ -254,7 +512,7 @@ export class ReportsComponent implements OnInit {
           }
 
           if (this.getUserFormsSubscription != null) this.getUserFormsSubscription.unsubscribe();
-          
+
           setTimeout(() => {
             this.focusCNField();
           }, 100);
@@ -266,5 +524,7 @@ export class ReportsComponent implements OnInit {
   ngOnDestroy() {
     if (this.getLedgersSubscription != null) this.getLedgersSubscription.unsubscribe();
     if (this.getUserFormsSubscription != null) this.getUserFormsSubscription.unsubscribe();
+    if (this.getLedgerDebitSubscription != null) this.getLedgerDebitSubscription.unsubscribe();
+    if (this.getLedgerCreditSubscription != null) this.getLedgerCreditSubscription.unsubscribe();
   }
 }
