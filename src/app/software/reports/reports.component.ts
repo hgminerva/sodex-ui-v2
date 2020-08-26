@@ -97,6 +97,16 @@ export class ReportsComponent implements OnInit {
   public isUpdateButtonHide: boolean = true;
   public isDeleteButtonHide: boolean = true;
 
+  public dailySummaryReportDateAsOfValue = new Date();
+
+  public beginningBalance: number = 0;
+  public totalDebit: number = 0;
+  public totalCredit: number = 0;
+  public endingBalance: number = 0;
+  public motherCardEndingBalance: number = 0;
+
+  public getDailySummaryReportSubscription: any;
+
   public createCboShowNumberOfRows(): void {
     for (var i = 0; i <= 4; i++) {
       var rows = 0;
@@ -480,6 +490,34 @@ export class ReportsComponent implements OnInit {
     let endDate = ('0' + (this.ledgerCreditDateEndValue.getMonth() + 1)).slice(-2) + '-' + ('0' + this.ledgerCreditDateEndValue.getDate()).slice(-2) + '-' + this.ledgerCreditDateEndValue.getFullYear();
 
     new Angular5Csv(data, 'Credit_Ledgers_From(' + startDate + ")_To(" + endDate + ")");
+  }
+
+  public btnGenerateDailySummaryReportOnclick(): void {
+    let btnGenerateDailySummaryReport: Element = document.getElementById("btnGenerateDailySummaryReport");
+    btnGenerateDailySummaryReport.innerHTML = "<i class='fa fa-refresh fa-fw'></i> Generating...";
+    btnGenerateDailySummaryReport.setAttribute("disabled", "disabled");
+
+    this.geDailyReportSummaryData();
+  }
+
+  public geDailyReportSummaryData(): void {
+    let dateAsOfValue = ('0' + (this.dailySummaryReportDateAsOfValue.getMonth() + 1)).slice(-2) + '-' + ('0' + this.dailySummaryReportDateAsOfValue.getDate()).slice(-2) + '-' + this.dailySummaryReportDateAsOfValue.getFullYear();
+
+    this.reportsService.getDailySummaryReport(dateAsOfValue);
+    this.getDailySummaryReportSubscription = this.reportsService.getDailySummaryReportObservable.subscribe(
+      data => {
+
+        this.beginningBalance = data.BeginningBalance;
+        this.totalDebit = data.TotalDebit;
+        this.totalCredit = data.TotalCredit;
+        this.endingBalance = data.EndingBalance;
+        this.motherCardEndingBalance = data.MotherCardEndingBalance;
+
+        let btnGenerateDailySummaryReport: Element = document.getElementById("btnGenerateDailySummaryReport");
+        btnGenerateDailySummaryReport.innerHTML = "<i class='fa fa-refresh fa-fw'></i> Generate";
+        btnGenerateDailySummaryReport.removeAttribute("disabled");
+      }
+    );
   }
 
   ngOnInit() {

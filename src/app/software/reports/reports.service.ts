@@ -29,6 +29,9 @@ export class ReportsService {
   public getCreditLedgersSource = new Subject<ObservableArray>();
   public getCreditLedgersObservable = this.getCreditLedgersSource.asObservable();
 
+  public getDailySummaryReportSource = new Subject<any>();
+  public getDailySummaryReportObservable = this.getDailySummaryReportSource.asObservable();
+
   public getLedgers(cardNumber: string, dateStart: string, dateEnd: string): void {
     let ledgersObservableArray = new ObservableArray();
     this.getLedgerSource.next(ledgersObservableArray);
@@ -47,7 +50,7 @@ export class ReportsService {
               Id: results[i].Id,
               CardId: results[i].CardId,
               CardNumber: results[i].CardNumber,
-              LedgerDateTime: ledgerDateTime,
+              LedgerDateTime: results[i].LedgerDateTime,
               Payee: results[i].CardOwner,
               DebitAmount: results[i].DebitAmount,
               DebitAmountDisplay: results[i].DebitAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
@@ -83,7 +86,7 @@ export class ReportsService {
               Id: results[i].Id,
               CardId: results[i].CardId,
               CardNumber: results[i].CardNumber,
-              LedgerDateTime: ledgerDateTime,
+              LedgerDateTime: results[i].LedgerDateTime,
               Payee: results[i].CardOwner,
               DebitAmount: results[i].DebitAmount,
               DebitAmountDisplay: results[i].DebitAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
@@ -113,7 +116,7 @@ export class ReportsService {
               Id: results[i].Id,
               CardId: results[i].CardId,
               CardNumber: results[i].CardNumber,
-              LedgerDateTime: ledgerDateTime,
+              LedgerDateTime: results[i].LedgerDateTime,
               Payee: results[i].CardOwner,
               CreditAmount: results[i].CreditAmount,
               CreditAmountDisplay: results[i].CreditAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
@@ -123,6 +126,33 @@ export class ReportsService {
         }
 
         this.getCreditLedgersSource.next(creditLedgersObservableArray);
+      }
+    );
+  }
+
+  public getDailySummaryReport(dateAsOf: string) {
+    let dailySummaryReportData: any = {
+      BeginningBalance: 0,
+      TotalDebit: 0,
+      TotalCredit: 0,
+      EndingBalance: 0,
+      MotherCardEndingBalance: 0
+    };
+
+    this.getDailySummaryReportSource.next(dailySummaryReportData);
+
+    this.http.get(this.defaultAPIURLHost + "/api/reportLedger/daily/summary/report/" + dateAsOf, this.options).subscribe(
+      response => {
+        var results = response.json();
+        if (results != null) {
+          dailySummaryReportData.BeginningBalance = results.BeginningBalance;
+          dailySummaryReportData.TotalDebit = results.TotalDebit;
+          dailySummaryReportData.TotalCredit = results.TotalCredit;
+          dailySummaryReportData.EndingBalance = results.EndingBalance;
+          dailySummaryReportData.MotherCardEndingBalance = results.MotherCardEndingBalance;
+        }
+
+        this.getDailySummaryReportSource.next(dailySummaryReportData);
       }
     );
   }

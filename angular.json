@@ -126,5 +126,8 @@
       }
     }
   },
-  "defaultProject": "sodex"
+  "defaultProject": "sodex",
+  "cli": {
+    "analytics": "7d75ce33-5c1d-4130-b8b1-58e17e647918"
+  }
 }
