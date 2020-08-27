@@ -55,7 +55,7 @@ export class TransferComponent implements OnInit {
     Status: ""
   };
 
-  public cboTransferType: String = "Load";
+  public cboTransferType: String = "Cash";
 
   public getUserFormsSubscription: any;
   public isLoadingSpinnerHidden: boolean = false;
@@ -157,7 +157,7 @@ export class TransferComponent implements OnInit {
     let objTransferData: any = {
       DestinationCardNumber: this.card.CardNumber,
       Amount: this.amountToBeTransfered,
-      TransferType: this.cboTransferType
+      Particulars: this.cboTransferType
     }
 
     this.transferService.transferAmount(objTransferData);
