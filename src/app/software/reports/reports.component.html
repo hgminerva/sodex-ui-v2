@@ -141,17 +141,17 @@
               <div class="col-md-5">
                 <div class="form-container">
                   <mat-form-field>
-                    <input matInput currencyMask placeholder="Total Debit" [(ngModel)]="totalDebitAmount" disabled
+                    <input matInput currencyMask placeholder="Total Debit" [(ngModel)]="totalDebitAmount" readonly
                       autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="0.00"
                       style="text-align: right;">
                   </mat-form-field>
                   <mat-form-field>
-                    <input matInput currencyMask placeholder="Total Credit" [(ngModel)]="totalCreditAmount" disabled
+                    <input matInput currencyMask placeholder="Total Credit" [(ngModel)]="totalCreditAmount" readonly
                       autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="0.00"
                       style="text-align: right;">
                   </mat-form-field>
                   <mat-form-field>
-                    <input matInput currencyMask placeholder="Total Balance" [(ngModel)]="totalBalanceAmount" disabled
+                    <input matInput currencyMask placeholder="Total Balance" [(ngModel)]="totalBalanceAmount" readonly
                       autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="0.00"
                       style="text-align: right;">
                   </mat-form-field>
@@ -285,7 +285,7 @@
                 <div class="form-container">
                   <mat-form-field>
                     <input matInput currencyMask placeholder="Total Debit" [(ngModel)]="totalLedgerDebitDebitAmount"
-                      disabled autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="0.00"
+                      readonly autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="0.00"
                       style="text-align: right;">
                   </mat-form-field>
                 </div>
@@ -419,7 +419,7 @@
                 <div class="form-container">
                   <mat-form-field>
                     <input matInput currencyMask placeholder="Total Credit" [(ngModel)]="totalLedgerCreditCreditAmount"
-                      disabled autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="0.00"
+                      readonly autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="0.00"
                       style="text-align: right;">
                   </mat-form-field>
                 </div>
@@ -474,36 +474,36 @@
           <div class="card-body">
             <br />
             <div class="row">
-              <div class="col-md-7">
-              </div>
               <div class="col-md-5">
                 <div class="form-container">
                   <mat-form-field>
-                    <input matInput currencyMask placeholder="Beginning Balance" [(ngModel)]="beginningBalance" disabled
+                    <input matInput currencyMask placeholder="Beginning Balance" [(ngModel)]="beginningBalance" readonly
                       autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="0.00"
                       style="text-align: right;">
                   </mat-form-field>
                   <mat-form-field>
-                    <input matInput currencyMask placeholder="Total Load Transaction" [(ngModel)]="totalDebit" disabled
+                    <input matInput currencyMask placeholder="Total Load Transaction" [(ngModel)]="totalDebit" readonly
                       autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="0.00"
                       style="text-align: right;">
                   </mat-form-field>
                   <mat-form-field>
                     <input matInput currencyMask placeholder="Total Usage Transaction" [(ngModel)]="totalCredit"
-                      disabled autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="0.00"
+                      readonly autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="0.00"
                       style="text-align: right;">
                   </mat-form-field>
                   <mat-form-field>
-                    <input matInput currencyMask placeholder="Ending Balance" [(ngModel)]="endingBalance" disabled
+                    <input matInput currencyMask placeholder="Ending Balance" [(ngModel)]="endingBalance" readonly
                       autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="0.00"
                       style="text-align: right;">
                   </mat-form-field>
                   <mat-form-field>
                     <input matInput currencyMask placeholder="Mother Card Ending Balance"
-                      [(ngModel)]="motherCardEndingBalance" disabled autocomplete="off" autocorrect="off"
+                      [(ngModel)]="motherCardEndingBalance" readonly autocomplete="off" autocorrect="off"
                       autocapitalize="off" spellcheck="false" value="0.00" style="text-align: right;">
                   </mat-form-field>
                 </div>
+              </div>
+              <div class="col-md-7">
               </div>
             </div>
           </div>

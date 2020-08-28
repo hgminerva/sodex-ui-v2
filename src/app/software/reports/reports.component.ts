@@ -516,6 +516,10 @@ export class ReportsComponent implements OnInit {
         let btnGenerateDailySummaryReport: Element = document.getElementById("btnGenerateDailySummaryReport");
         btnGenerateDailySummaryReport.innerHTML = "<i class='fa fa-refresh fa-fw'></i> Generate";
         btnGenerateDailySummaryReport.removeAttribute("disabled");
+
+        this.toastr.success("Generate Successful!");
+
+        if (this.getDailySummaryReportSubscription != null) this.getDailySummaryReportSubscription.unsubscribe();
       }
     );
   }
@@ -564,5 +568,6 @@ export class ReportsComponent implements OnInit {
     if (this.getUserFormsSubscription != null) this.getUserFormsSubscription.unsubscribe();
     if (this.getLedgerDebitSubscription != null) this.getLedgerDebitSubscription.unsubscribe();
     if (this.getLedgerCreditSubscription != null) this.getLedgerCreditSubscription.unsubscribe();
+    if (this.getDailySummaryReportSubscription != null) this.getDailySummaryReportSubscription.unsubscribe();
   }
 }
